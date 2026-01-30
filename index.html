@@ -162,6 +162,22 @@
     </style>
 </head>
 <body>
+<a href="https://buymeacoffee.com/anonymous888" target="_blank" style="text-decoration: none; position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <div style="display: flex; align-items: center; background-color: #FFDD00; color: #000; padding: 10px 18px; border-radius: 50px; font-weight: bold; font-family: 'Kanit'; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: 0.3s;" 
+         onmouseover="this.style.transform='scale(1.05)'" 
+         onmouseout="this.style.transform='scale(1)'">
+        <img src="https://cdn.buymeacoffee.com/widget/assets/quebec-castor.svg" style="height: 20px; margin-right: 8px;">
+        <span class="donate-text">Buy me a coffee</span>
+    </div>
+</a>
+
+<style>
+    /* ซ่อนข้อความบนมือถือเพื่อให้เหลือแค่ไอคอน จะได้ไม่บังหน้าจอ */
+    @media (max-width: 480px) {
+        .donate-text { display: none; }
+        .donate-btn { padding: 10px !important; }
+    </div>
+</style>
 
 <div class="container">
     <h2>QR Designer</h2>
@@ -214,6 +230,7 @@
     <div id="canvas" ondblclick="downloadQR()"></div>
     
     <p class="hint">✨ <b>ดับเบิลคลิกที่รูปเพื่อบันทึก</b></p>
+    
 </div>
 
 <script>
