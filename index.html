@@ -166,17 +166,22 @@
     <div style="display: flex; align-items: center; background-color: #FFDD00; color: #000; padding: 10px 18px; border-radius: 50px; font-weight: bold; font-family: 'Kanit'; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: 0.3s;" 
          onmouseover="this.style.transform='scale(1.05)'" 
          onmouseout="this.style.transform='scale(1)'">
-        <img src="https://cdn.buymeacoffee.com/widget/assets/quebec-castor.svg" style="height: 20px; margin-right: 8px;">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
         <span class="donate-text">Buy me a coffee</span>
     </div>
 </a>
 
 <style>
-    /* ซ่อนข้อความบนมือถือเพื่อให้เหลือแค่ไอคอน จะได้ไม่บังหน้าจอ */
     @media (max-width: 480px) {
         .donate-text { display: none; }
-        .donate-btn { padding: 10px !important; }
-    </div>
+    }
 </style>
 
 <div class="container">
@@ -230,6 +235,39 @@
     <div id="canvas" ondblclick="downloadQR()"></div>
     
     <p class="hint">✨ <b>ดับเบิลคลิกที่รูปเพื่อบันทึก</b></p>
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
+    <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
+
+    <style>
+        @keyframes steamFloat {
+            0% { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-6px); opacity: 0; }
+        }
+        .steam-line {
+            animation: steamFloat 1.5s infinite linear;
+        }
+        /* หน่วงเวลาให้ควันลอยไม่พร้อมกัน */
+        .s1 { animation-delay: 0s; }
+        .s2 { animation-delay: 0.5s; }
+        .s3 { animation-delay: 1s; }
+    </style>
+
+    <a href="https://buymeacoffee.com/anonymous888" target="_blank" style="text-decoration: none;">
+        <div style="display: inline-flex; align-items: center; background-color: #FFDD00; color: #000; padding: 12px 25px; border-radius: 15px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);"
+             onmouseover="this.style.transform='translateY(-3px)'"
+             onmouseout="this.style.transform='translateY(0)'">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <path class="steam-line s1" d="M6 1v3"></path>
+                <path class="steam-line s2" d="M10 1v3"></path>
+                <path class="steam-line s3" d="M14 1v3"></path>
+            </svg>
+            Buy me a coffee
+        </div>
+    </a>
+</div>
     
 </div>
 
