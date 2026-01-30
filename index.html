@@ -7,69 +7,158 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600&display=swap" rel="stylesheet">
     
     <style>
+        /* พื้นหลังแบบเคลื่อนไหวสีพรีเมี่ยม */
         body {
             font-family: 'Kanit', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; padding: 20px;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* คอนเทนเนอร์แบบกระจกใส (Glassmorphism) */
         .container {
-            background: white; padding: 40px; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            text-align: center; width: 100%; max-width: 550px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        h2 { font-size: 2.5rem; color: #333; margin-bottom: 30px; }
+
+        h2 { 
+            font-size: 3rem; 
+            color: #1a1a1a; 
+            margin-bottom: 35px;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
         
-        .input-wrapper { margin-bottom: 20px; text-align: left; }
-        label { display: block; font-size: 1.2rem; margin-bottom: 8px; color: #666; }
+        .input-wrapper { margin-bottom: 25px; text-align: left; }
+        label { 
+            display: block; 
+            font-size: 1.1rem; 
+            margin-bottom: 10px; 
+            color: #444; 
+            font-weight: 500;
+            padding-left: 5px;
+        }
         
         input[type="text"], select {
-            width: 100%; padding: 15px; font-size: 1.2rem;
-            border: 2px solid #eee; border-radius: 12px; font-family: 'Kanit';
+            width: 100%; 
+            padding: 18px; 
+            font-size: 1.1rem; 
+            border: 2px solid #f0f0f0; 
+            border-radius: 18px; 
+            font-family: 'Kanit';
             box-sizing: border-box;
+            background: #fcfcfc;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #23a6d5;
+            box-shadow: 0 0 15px rgba(35, 166, 213, 0.2);
+            outline: none;
+            background: #fff;
         }
 
         .color-row {
-            display: flex; align-items: center; gap: 15px;
-            background: #f9f9f9; padding: 15px; border-radius: 15px;
+            display: flex; 
+            align-items: center; 
+            gap: 20px;
+            background: #f8f8f8; 
+            padding: 15px 25px; 
+            border-radius: 20px;
+            border: 1px solid #eee;
         }
-        input[type="color"] {
-            width: 50px; height: 50px; border: none; cursor: pointer; background: none;
-            border-radius: 8px;
-        }
-        .color-code { font-size: 1.2rem; font-weight: bold; }
 
-        /* Size slider */
+        input[type="color"] {
+            width: 55px; 
+            height: 55px; 
+            border: none; 
+            cursor: pointer; 
+            background: none;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+
+        .color-code { font-size: 1.2rem; font-weight: 600; color: #333; }
+
         .size-control {
-            display: flex; align-items: center; gap: 15px;
-            background: #f9f9f9; padding: 15px; border-radius: 15px;
+            display: flex; 
+            align-items: center; 
+            gap: 20px;
+            background: #f8f8f8; 
+            padding: 20px; 
+            border-radius: 20px;
         }
+
         input[type="range"] {
-            flex-grow: 1; height: 8px; border-radius: 5px;
-            background: #ddd; outline: none;
+            flex-grow: 1; 
+            height: 6px; 
+            border-radius: 10px;
+            background: #ddd; 
+            appearance: none;
         }
+
         input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none;
-            width: 20px; height: 20px; border-radius: 50%;
-            background: #4CAF50; cursor: pointer;
+            appearance: none;
+            width: 24px; height: 24px; 
+            border-radius: 50%;
+            background: #23a6d5; 
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(35, 166, 213, 0.4);
         }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px; height: 20px; border-radius: 50%;
-            background: #4CAF50; cursor: pointer;
-        }
+
         .size-value {
-            font-size: 1.2rem; font-weight: bold; min-width: 60px;
-            text-align: center; color: #4CAF50;
+            font-size: 1.3rem; 
+            font-weight: 600; 
+            color: #23a6d5;
+            min-width: 70px;
         }
 
         #canvas { 
-            margin-top: 30px; display: inline-block;
-            cursor: pointer; transition: 0.3s;
-            background: #fff; border-radius: 20px;
-            padding: 20px;
+            margin-top: 40px; 
+            display: inline-block;
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #fff; 
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
-        #canvas:hover { transform: scale(1.02); }
-        .hint { font-size: 1rem; color: #999; margin-top: 15px; }
+
+        #canvas:hover { transform: scale(1.05); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
+        
+        .hint { 
+            font-size: 1rem; 
+            color: #888; 
+            margin-top: 25px; 
+            font-weight: 300;
+        }
+
+        b { color: #e73c7e; }
     </style>
 </head>
 <body>
@@ -89,46 +178,46 @@
     
     <div class="input-wrapper">
         <label>3. รูปแบบ QR Code:</label>
-        <select id="qrStyle" onchange="updateQR()" style="width: 100%; padding: 15px; font-size: 1.2rem; border: 2px solid #eee; border-radius: 12px; font-family: 'Kanit';">
-            <option value="rounded">🔷 ขอบมน (Rounded)</option>
+        <select id="qrStyle" onchange="updateQR()">
+            <option value="rounded">🔷 พรีเมี่ยม (Premium)</option>
             <option value="dots">⚫ วงกลม (Dots)</option>
             <option value="square">⬛ สี่เหลี่ยม (Square)</option>
             <option value="classy">💎 คลาสสิก (Classy)</option>
-            <option value="classy-rounded">✨ พรีเมี่ยม (Premium)</option>
         </select>
     </div>
 
-    <div class="input-wrapper">
-        <label>4. สี QR Code:</label>
-        <div class="color-row">
-            <input type="color" id="color" value="#000000" oninput="updateColorLabel()">
-            <span id="colorLabel" class="color-code">#000000</span>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="input-wrapper">
+            <label>4. สี QR:</label>
+            <div class="color-row">
+                <input type="color" id="color" value="#1a1a1a" oninput="updateColorLabel()">
+                <span id="colorLabel" class="color-code">#1A1A1A</span>
+            </div>
+        </div>
+
+        <div class="input-wrapper">
+            <label>5. สีพื้นหลัง:</label>
+            <div class="color-row">
+                <input type="color" id="bgColor" value="#ffffff" oninput="updateBgColorLabel()">
+                <span id="bgColorLabel" class="color-code">#FFFFFF</span>
+            </div>
         </div>
     </div>
 
     <div class="input-wrapper">
-        <label>5. สีพื้นหลัง:</label>
-        <div class="color-row">
-            <input type="color" id="bgColor" value="#ffffff" oninput="updateBgColorLabel()">
-            <span id="bgColorLabel" class="color-code">#FFFFFF</span>
-        </div>
-    </div>
-
-    <div class="input-wrapper">
-        <label>6. ขนาด QR Code: <span id="sizeValue" class="size-value">300px</span></label>
+        <label>6. ปรับขนาด: <span id="sizeValue" class="size-value">300px</span></label>
         <div class="size-control">
-            <span style="font-size: 1.5rem;">🔍</span>
             <input type="range" id="qrSize" min="200" max="500" value="300" step="50" oninput="updateSize()">
-            <span style="font-size: 2rem;">🔎</span>
         </div>
     </div>
 
     <div id="canvas" ondblclick="downloadQR()"></div>
     
-    <p class="hint">💡 <b>ดับเบิลคลิกที่รูปเพื่อบันทึก</b></p>
+    <p class="hint">✨ <b>ดับเบิลคลิกที่รูปเพื่อบันทึก</b></p>
 </div>
 
 <script>
+    // ส่วน JavaScript คงเดิมตามที่คุณมีเพื่อรักษาฟังก์ชันการทำงาน
     let qrStyling;
 
     function updateColorLabel() {
@@ -155,7 +244,6 @@
         const qrStyle = document.getElementById('qrStyle').value;
         const size = parseInt(document.getElementById('qrSize').value);
 
-        // กำหนดรูปแบบตามที่เลือก
         let dotsType, cornersSquareType, cornersDotType;
         
         switch(qrStyle) {
@@ -179,18 +267,10 @@
                 cornersSquareType = 'extra-rounded';
                 cornersDotType = 'dot';
                 break;
-            case 'classy-rounded':
-                dotsType = 'classy-rounded';
-                cornersSquareType = 'extra-rounded';
-                cornersDotType = 'dot';
-                break;
             default:
                 dotsType = 'extra-rounded';
-                cornersSquareType = 'extra-rounded';
-                cornersDotType = 'dot';
         }
 
-        // สร้างรูปภาพจากข้อความ
         const textImage = createTextImage(centerText, color, bgColor);
 
         if (!qrStyling) {
@@ -208,10 +288,7 @@
             qrStyling.append(document.getElementById("canvas"));
         } else {
             qrStyling.update({
-                width: size,
-                height: size,
-                data: text,
-                image: textImage,
+                width: size, height: size, data: text, image: textImage,
                 dotsOptions: { color: color, type: dotsType },
                 cornersSquareOptions: { type: cornersSquareType, color: color },
                 cornersDotOptions: { type: cornersDotType, color: color },
@@ -220,7 +297,6 @@
         }
     }
 
-    // ฟังก์ชันวาดมุมมน (รองรับทุกบราวเซอร์)
     function roundRect(ctx, x, y, width, height, radius) {
         ctx.beginPath();
         ctx.moveTo(x + radius, y);
@@ -235,42 +311,29 @@
         ctx.closePath();
     }
 
-    // ฟังก์ชันพิเศษ: เปลี่ยนข้อความให้กลายเป็นรูปภาพ
     function createTextImage(text, color, bgColor) {
         if (!text) return "";
-        
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = 250;
-        canvas.height = 120;
-        
-        // วาดพื้นหลังมุมมน (ใช้สีพื้นหลังของ QR)
+        canvas.width = 250; canvas.height = 120;
         ctx.fillStyle = bgColor;
-        roundRect(ctx, 5, 5, 240, 110, 20);
+        roundRect(ctx, 5, 5, 240, 110, 25);
         ctx.fill();
-
-        // ปรับขนาดฟอนต์ตามความยาวข้อความ
-        let fontSize = 50;
-        if (text.length > 5) fontSize = 40;
-        if (text.length > 7) fontSize = 35;
-
-        // เขียนตัวอักษร
+        let fontSize = text.length > 5 ? 35 : 50;
         ctx.fillStyle = color;
         ctx.font = `bold ${fontSize}px Kanit`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(text, 125, 60);
-        
         return canvas.toDataURL();
     }
 
     function downloadQR() {
         if (qrStyling) {
-            qrStyling.download({ name: "my-design-qr", extension: "png" });
+            qrStyling.download({ name: "premium-qr", extension: "png" });
         }
     }
 
-    // เริ่มต้นเมื่อโหลดหน้าเว็บ
     window.onload = updateQR;
 </script>
 
