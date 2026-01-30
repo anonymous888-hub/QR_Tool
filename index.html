@@ -188,7 +188,7 @@
     <h2>QR Designer</h2>
     
     <div class="input-wrapper">
-        <label>1. ลิงก์หรือข้อความของ QR:</label>
+        <label>1. ลิงก์หรือข้อความของ QR:(Link)</label>
         <input type="text" id="content" placeholder="https://..." oninput="updateQR()">
     </div>
 
@@ -198,7 +198,7 @@
     </div>
     
     <div class="input-wrapper">
-        <label>3. รูปแบบ QR Code:</label>
+        <label>3. รูปแบบ QR Code:(QR Style)</label>
         <select id="qrStyle" onchange="updateQR()">
             <option value="rounded">🔷 พรีเมี่ยม (Premium)</option>
             <option value="dots">⚫ วงกลม (Dots)</option>
@@ -209,7 +209,7 @@
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div class="input-wrapper">
-            <label>4. สี QR:</label>
+            <label>4. สี QR:(Color)</label>
             <div class="color-row">
                 <input type="color" id="color" value="#1a1a1a" oninput="updateColorLabel()">
                 <span id="colorLabel" class="color-code">#1A1A1A</span>
@@ -217,7 +217,7 @@
         </div>
 
         <div class="input-wrapper">
-            <label>5. สีพื้นหลัง:</label>
+            <label>5. สีพื้นหลัง:(Background Color)</label>
             <div class="color-row">
                 <input type="color" id="bgColor" value="#ffffff" oninput="updateBgColorLabel()">
                 <span id="bgColorLabel" class="color-code">#FFFFFF</span>
@@ -226,7 +226,7 @@
     </div>
 
     <div class="input-wrapper">
-        <label>6. ปรับขนาด: <span id="sizeValue" class="size-value">300px</span></label>
+        <label>6. ปรับขนาด:(Size) <span id="sizeValue" class="size-value">300px</span></label>
         <div class="size-control">
             <input type="range" id="qrSize" min="200" max="500" value="300" step="50" oninput="updateSize()">
         </div>
@@ -234,7 +234,9 @@
 
     <div id="canvas" ondblclick="downloadQR()"></div>
     
-    <p class="hint">✨ <b>ดับเบิลคลิกที่รูปเพื่อบันทึก</b></p>
+    <p class="hint" style="margin-top: 15px; color: #777; font-size: 0.95rem;">
+    💡 <b>ดับเบิลคลิกที่รูปเพื่อบันทึก (Double-click image to save)</b>
+</p>
     <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
     <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
 
