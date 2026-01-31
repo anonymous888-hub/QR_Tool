@@ -149,12 +149,42 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
 
-        #canvas:hover { transform: scale(1.05); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
+        #canvas:hover { transform: scale(1.02); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
         
+        /* --- ปุ่ม Download ที่เพิ่มเข้ามา --- */
+        .download-btn {
+            background: linear-gradient(45deg, #23a6d5, #23d5ab);
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-size: 1.2rem;
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(35, 166, 213, 0.3);
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(35, 166, 213, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .download-btn:active {
+            transform: translateY(1px);
+        }
+        /* -------------------------------- */
+
         .hint { 
             font-size: 1rem; 
             color: #888; 
-            margin-top: 25px; 
+            margin-top: 15px; 
             font-weight: 300;
         }
 
@@ -234,9 +264,16 @@
 
     <div id="canvas" ondblclick="downloadQR()"></div>
     
-    <p class="hint" style="margin-top: 15px; color: #777; font-size: 0.95rem;">
-    💡 <b>ดับเบิลคลิกที่รูปเพื่อบันทึก (Double-click image to save)</b>
-</p>
+    <div>
+        <button class="download-btn" onclick="downloadQR()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            บันทึกรูปภาพ (Download)
+        </button>
+    </div>
+    <p class="hint">
+    💡 หรือดับเบิลคลิกที่รูปเพื่อบันทึก
+    </p>
+
     <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
     <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
 
