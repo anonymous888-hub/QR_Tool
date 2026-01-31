@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium QR Designer with Text</title>
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600&display=swap" rel="stylesheet">
@@ -19,6 +20,7 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
+            will-change: background-position; 
         }
 
         @keyframes gradient {
@@ -78,6 +80,137 @@
             background: #fff;
         }
 
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .toggle-btn {
+            padding: 12px 25px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-family: 'Kanit';
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #23a6d5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* QR Style Cards */
+        .qr-style-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .style-card {
+            padding: 15px 10px;
+            border: 3px solid #f0f0f0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .style-card:hover {
+            border-color: #23a6d5;
+            background: #f0f8ff;
+            transform: translateY(-2px);
+        }
+
+        .style-card.selected {
+            border-color: #23a6d5;
+            background: linear-gradient(135deg, #e8f5ff 0%, #f0f8ff 100%);
+            box-shadow: 0 4px 15px rgba(35, 166, 213, 0.2);
+        }
+
+        .style-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .style-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #23a6d5;
+            background: #f0f8ff;
+        }
+
+        .upload-area.dragging {
+            border-color: #23d5ab;
+            background: #e8fff9;
+        }
+
+        #logoInput {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .preview-image {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 15px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e73c7e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: 0.3s;
+        }
+
+        .remove-image:hover {
+            background: #c52f5e;
+            transform: scale(1.1);
+        }
+
         .color-row {
             display: flex; 
             align-items: center; 
@@ -105,6 +238,81 @@
 
         .color-code { font-size: 1.2rem; font-weight: 600; color: #333; }
 
+        /* Transparent Toggle - ปรับขนาดให้เล็กลง */
+        .transparent-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f8f8;
+            padding: 10px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #eee;
+        }
+
+        .transparent-toggle:hover {
+            background: #f0f8ff;
+            border-color: #23a6d5;
+        }
+
+        .transparent-toggle.active {
+            background: linear-gradient(135deg, #e8f5ff 0%, #f0f8ff 100%);
+            border-color: #23a6d5;
+        }
+
+        .transparent-toggle input[type="checkbox"] {
+            width: 45px;
+            height: 24px;
+            appearance: none;
+            background: #ddd;
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transparent-toggle input[type="checkbox"]:checked {
+            background: #23a6d5;
+        }
+
+        .transparent-toggle input[type="checkbox"]::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .transparent-toggle input[type="checkbox"]:checked::before {
+            left: 24px;
+        }
+
+        .transparent-toggle label {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Checkerboard pattern for transparent preview */
+        #canvas.transparent-bg {
+            background-image: 
+                linear-gradient(45deg, #ddd 25%, transparent 25%),
+                linear-gradient(-45deg, #ddd 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #ddd 75%),
+                linear-gradient(-45deg, transparent 75%, #ddd 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
         .size-control {
             display: flex; 
             align-items: center; 
@@ -131,6 +339,14 @@
             box-shadow: 0 0 10px rgba(35, 166, 213, 0.4);
         }
 
+        input[type="range"]::-moz-range-thumb {
+            width: 24px; height: 24px; 
+            border-radius: 50%;
+            background: #23a6d5; 
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(35, 166, 213, 0.4);
+        }
+
         .size-value {
             font-size: 1.3rem; 
             font-weight: 600; 
@@ -139,7 +355,8 @@
         }
 
         #canvas { 
-            margin-top: 40px; 
+            margin-top: 30px;
+            margin-bottom: 20px; 
             display: inline-block;
             cursor: pointer; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -149,9 +366,11 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
 
-        #canvas:hover { transform: scale(1.02); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
+        #canvas:hover { 
+            transform: scale(1.02); 
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12); 
+        }
         
-        /* --- ปุ่ม Download ที่เพิ่มเข้ามา --- */
         .download-btn {
             background: linear-gradient(45deg, #23a6d5, #23d5ab);
             border: none;
@@ -163,7 +382,7 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(35, 166, 213, 0.3);
-            margin-top: 30px;
+            margin-top: 20px;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -179,7 +398,6 @@
         .download-btn:active {
             transform: translateY(1px);
         }
-        /* -------------------------------- */
 
         .hint { 
             font-size: 1rem; 
@@ -189,6 +407,33 @@
         }
 
         b { color: #e73c7e; }
+
+        .hidden { display: none !important; }
+
+        @keyframes steamFloat {
+            0% { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-6px); opacity: 0; }
+        }
+        .steam-line {
+            animation: steamFloat 1.5s infinite linear;
+        }
+        .s1 { animation-delay: 0s; }
+        .s2 { animation-delay: 0.5s; }
+        .s3 { animation-delay: 1s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 30px 25px; }
+            h2 { font-size: 2.2rem; }
+            .download-btn { font-size: 1.1rem; padding: 12px 30px; }
+            .qr-style-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .donate-text { display: none; }
+            h2 { font-size: 1.8rem; }
+            .qr-style-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
@@ -208,38 +453,45 @@
     </div>
 </a>
 
-<style>
-    @media (max-width: 480px) {
-        .donate-text { display: none; }
-    }
-</style>
-
 <div class="container">
     <h2>QR Designer</h2>
     
     <div class="input-wrapper">
-        <label>1. ลิงก์หรือข้อความของ QR:(Link)</label>
+        <label>1. ลิงก์หรือข้อความของ QR (Link):</label>
         <input type="text" id="content" placeholder="https://..." oninput="updateQR()">
     </div>
 
     <div class="input-wrapper">
-        <label>2. ข้อความตรงกลาง (Label):</label>
-        <input type="text" id="centerText" placeholder="เช่น LINE, FB, Scan Me" oninput="updateQR()" maxlength="8">
-    </div>
-    
-    <div class="input-wrapper">
-        <label>3. รูปแบบ QR Code:(QR Style)</label>
-        <select id="qrStyle" onchange="updateQR()">
-            <option value="rounded">🔷 พรีเมี่ยม (Premium)</option>
-            <option value="dots">⚫ วงกลม (Dots)</option>
-            <option value="square">⬛ สี่เหลี่ยม (Square)</option>
-            <option value="classy">💎 คลาสสิก (Classy)</option>
-        </select>
+        <label>2. เลือกตรงกลาง QR (Center Content):</label>
+        <div class="toggle-container">
+            <button class="toggle-btn active" onclick="toggleMode('text')" id="textModeBtn">
+                📝 ข้อความ
+            </button>
+            <button class="toggle-btn" onclick="toggleMode('image')" id="imageModeBtn">
+                🖼️ รูปภาพ/โลโก้
+            </button>
+        </div>
+
+        <!-- Text Input -->
+        <div id="textSection">
+            <input type="text" id="centerText" placeholder="เช่น LINE, FB, Scan Me" oninput="updateQR()" maxlength="8">
+        </div>
+
+        <!-- Image Upload -->
+        <div id="imageSection" class="hidden">
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('logoInput').click()">
+                <div class="upload-icon">📤</div>
+                <p style="margin: 10px 0; color: #666;">คลิกหรือลากไฟล์มาวางที่นี่</p>
+                <p style="margin: 0; font-size: 0.9rem; color: #999;">รองรับ PNG, JPG (แนะนำรูปโปร่งใส PNG)</p>
+                <div id="preview"></div>
+            </div>
+            <input type="file" id="logoInput" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div class="input-wrapper">
-            <label>4. สี QR:(Color)</label>
+            <label>3. สี QR (Color):</label>
             <div class="color-row">
                 <input type="color" id="color" value="#1a1a1a" oninput="updateColorLabel()">
                 <span id="colorLabel" class="color-code">#1A1A1A</span>
@@ -247,8 +499,8 @@
         </div>
 
         <div class="input-wrapper">
-            <label>5. สีพื้นหลัง:(Background Color)</label>
-            <div class="color-row">
+            <label>4. สีพื้นหลัง (Background):</label>
+            <div class="color-row" id="bgColorRow">
                 <input type="color" id="bgColor" value="#ffffff" oninput="updateBgColorLabel()">
                 <span id="bgColorLabel" class="color-code">#FFFFFF</span>
             </div>
@@ -256,63 +508,197 @@
     </div>
 
     <div class="input-wrapper">
-        <label>6. ปรับขนาด:(Size) <span id="sizeValue" class="size-value">300px</span></label>
+        <label>5. ปรับขนาด (Size): <span id="sizeValue" class="size-value">300px</span></label>
         <div class="size-control">
             <input type="range" id="qrSize" min="200" max="500" value="300" step="50" oninput="updateSize()">
         </div>
     </div>
 
+    <!-- ย้าย Transparent Toggle มาไว้ตรงนี้ -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <div class="transparent-toggle" id="transparentToggle" onclick="toggleTransparent()">
+            <input type="checkbox" id="transparentCheck" onchange="toggleTransparent()">
+            <label for="transparentCheck">🔳 พื้นหลังโปร่งใส</label>
+        </div>
+    </div>
+
     <div id="canvas" ondblclick="downloadQR()"></div>
+
+    <!-- รูปแบบ QR Code อยู่ใต้ QR -->
+    <div class="input-wrapper" style="margin-top: 0;">
+        <label style="text-align: center;">รูปแบบ QR Code (QR Style):</label>
+        <div class="qr-style-grid">
+            <div class="style-card selected" onclick="selectStyle('rounded', this)">
+                <div class="style-icon">🔷</div>
+                <div class="style-name">พรีเมี่ยม</div>
+            </div>
+            <div class="style-card" onclick="selectStyle('dots', this)">
+                <div class="style-icon">⚫</div>
+                <div class="style-name">วงกลม</div>
+            </div>
+            <div class="style-card" onclick="selectStyle('square', this)">
+                <div class="style-icon">⬛</div>
+                <div class="style-name">สี่เหลี่ยม</div>
+            </div>
+            <div class="style-card" onclick="selectStyle('classy', this)">
+                <div class="style-icon">💎</div>
+                <div class="style-name">คลาสสิก</div>
+            </div>
+        </div>
+    </div>
     
     <div>
         <button class="download-btn" onclick="downloadQR()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
             บันทึกรูปภาพ (Download)
         </button>
     </div>
-    <p class="hint">
-    💡 หรือดับเบิลคลิกที่รูปเพื่อบันทึก
-    </p>
+    
+    <p class="hint">💡 หรือดับเบิลคลิกที่รูปเพื่อบันทึก</p>
 
     <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
-    <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
+        <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
 
-    <style>
-        @keyframes steamFloat {
-            0% { transform: translateY(0); opacity: 0.8; }
-            100% { transform: translateY(-6px); opacity: 0; }
-        }
-        .steam-line {
-            animation: steamFloat 1.5s infinite linear;
-        }
-        /* หน่วงเวลาให้ควันลอยไม่พร้อมกัน */
-        .s1 { animation-delay: 0s; }
-        .s2 { animation-delay: 0.5s; }
-        .s3 { animation-delay: 1s; }
-    </style>
+        <a href="https://buymeacoffee.com/anonymous888" target="_blank" style="text-decoration: none;">
+            <div style="display: inline-flex; align-items: center; background-color: #FFDD00; color: #000; padding: 12px 25px; border-radius: 15px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);"
+                 onmouseover="this.style.transform='translateY(-3px)'"
+                 onmouseout="this.style.transform='translateY(0)'">
 
-    <a href="https://buymeacoffee.com/anonymous888" target="_blank" style="text-decoration: none;">
-        <div style="display: inline-flex; align-items: center; background-color: #FFDD00; color: #000; padding: 12px 25px; border-radius: 15px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);"
-             onmouseover="this.style.transform='translateY(-3px)'"
-             onmouseout="this.style.transform='translateY(0)'">
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
-                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                <path class="steam-line s1" d="M6 1v3"></path>
-                <path class="steam-line s2" d="M10 1v3"></path>
-                <path class="steam-line s3" d="M14 1v3"></path>
-            </svg>
-            Buy me a coffee
-        </div>
-    </a>
-</div>
-    
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                    <path class="steam-line s1" d="M6 1v3"></path>
+                    <path class="steam-line s2" d="M10 1v3"></path>
+                    <path class="steam-line s3" d="M14 1v3"></path>
+                </svg>
+                Buy me a coffee
+            </div>
+        </a>
+    </div>
 </div>
 
 <script>
-    // ส่วน JavaScript คงเดิมตามที่คุณมีเพื่อรักษาฟังก์ชันการทำงาน
     let qrStyling;
+    let currentMode = 'text';
+    let uploadedImage = null;
+    let currentStyle = 'rounded';
+    let isTransparent = false;
+
+    // Toggle Transparent Background
+    function toggleTransparent() {
+        const checkbox = document.getElementById('transparentCheck');
+        const toggle = document.getElementById('transparentToggle');
+        const bgColorRow = document.getElementById('bgColorRow');
+        const canvas = document.getElementById('canvas');
+        
+        isTransparent = checkbox.checked;
+        
+        if (isTransparent) {
+            toggle.classList.add('active');
+            bgColorRow.style.opacity = '0.5';
+            bgColorRow.style.pointerEvents = 'none';
+            canvas.classList.add('transparent-bg');
+        } else {
+            toggle.classList.remove('active');
+            bgColorRow.style.opacity = '1';
+            bgColorRow.style.pointerEvents = 'auto';
+            canvas.classList.remove('transparent-bg');
+        }
+        
+        updateQR();
+    }
+
+    // Select QR Style
+    function selectStyle(style, element) {
+        currentStyle = style;
+        
+        document.querySelectorAll('.style-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        element.classList.add('selected');
+        
+        updateQR();
+    }
+
+    // Toggle ระหว่างโหมดข้อความและรูปภาพ
+    function toggleMode(mode) {
+        currentMode = mode;
+        
+        document.getElementById('textModeBtn').classList.toggle('active', mode === 'text');
+        document.getElementById('imageModeBtn').classList.toggle('active', mode === 'image');
+        
+        document.getElementById('textSection').classList.toggle('hidden', mode !== 'text');
+        document.getElementById('imageSection').classList.toggle('hidden', mode !== 'image');
+        
+        if (mode === 'text') {
+            uploadedImage = null;
+            document.getElementById('preview').innerHTML = '';
+        } else {
+            document.getElementById('centerText').value = '';
+        }
+        
+        updateQR();
+    }
+
+    // Handle Image Upload
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        if (!file.type.startsWith('image/')) {
+            alert('กรุณาเลือกไฟล์รูปภาพเท่านั้น');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            uploadedImage = e.target.result;
+            
+            const preview = document.getElementById('preview');
+            preview.innerHTML = `
+                <button class="remove-image" onclick="removeImage()">×</button>
+                <img src="${uploadedImage}" class="preview-image" alt="Preview">
+            `;
+            
+            updateQR();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeImage() {
+        uploadedImage = null;
+        document.getElementById('preview').innerHTML = '';
+        document.getElementById('logoInput').value = '';
+        updateQR();
+    }
+
+    // Drag & Drop
+    const uploadArea = document.getElementById('uploadArea');
+    
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragging');
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragging');
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragging');
+        
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const fakeEvent = { target: { files: [file] } };
+            handleImageUpload(fakeEvent);
+        }
+    });
 
     function updateColorLabel() {
         document.getElementById('colorLabel').innerText = document.getElementById('color').value.toUpperCase();
@@ -334,13 +720,12 @@
         const text = document.getElementById('content').value || "https://google.com";
         const centerText = document.getElementById('centerText').value;
         const color = document.getElementById('color').value;
-        const bgColor = document.getElementById('bgColor').value;
-        const qrStyle = document.getElementById('qrStyle').value;
+        const bgColor = isTransparent ? 'rgba(0,0,0,0)' : document.getElementById('bgColor').value;
         const size = parseInt(document.getElementById('qrSize').value);
 
         let dotsType, cornersSquareType, cornersDotType;
         
-        switch(qrStyle) {
+        switch(currentStyle) {
             case 'rounded':
                 dotsType = 'extra-rounded';
                 cornersSquareType = 'extra-rounded';
@@ -363,30 +748,50 @@
                 break;
             default:
                 dotsType = 'extra-rounded';
+                cornersSquareType = 'extra-rounded';
+                cornersDotType = 'dot';
         }
 
-        const textImage = createTextImage(centerText, color, bgColor);
+        // เลือกระหว่างข้อความหรือรูปภาพ
+        let centerImage = '';
+        if (currentMode === 'text' && centerText) {
+            centerImage = createTextImage(centerText, color, isTransparent ? 'rgba(0,0,0,0)' : document.getElementById('bgColor').value);
+        } else if (currentMode === 'image' && uploadedImage) {
+            centerImage = uploadedImage;
+        }
 
         if (!qrStyling) {
             qrStyling = new QRCodeStyling({
                 width: size,
                 height: size,
                 data: text,
-                image: textImage,
+                image: centerImage,
                 dotsOptions: { color: color, type: dotsType },
                 cornersSquareOptions: { type: cornersSquareType, color: color },
                 cornersDotOptions: { type: cornersDotType, color: color },
                 backgroundOptions: { color: bgColor },
-                imageOptions: { hideBackgroundDots: true, imageSize: 0.45, margin: 10 }
+                imageOptions: { 
+                    hideBackgroundDots: true, 
+                    imageSize: 0.4, 
+                    margin: currentMode === 'image' ? 5 : 10 
+                }
             });
             qrStyling.append(document.getElementById("canvas"));
         } else {
             qrStyling.update({
-                width: size, height: size, data: text, image: textImage,
+                width: size, 
+                height: size, 
+                data: text, 
+                image: centerImage,
                 dotsOptions: { color: color, type: dotsType },
                 cornersSquareOptions: { type: cornersSquareType, color: color },
                 cornersDotOptions: { type: cornersDotType, color: color },
-                backgroundOptions: { color: bgColor }
+                backgroundOptions: { color: bgColor },
+                imageOptions: { 
+                    hideBackgroundDots: true, 
+                    imageSize: 0.4, 
+                    margin: currentMode === 'image' ? 5 : 10 
+                }
             });
         }
     }
@@ -407,18 +812,29 @@
 
     function createTextImage(text, color, bgColor) {
         if (!text) return "";
+        
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = 250; canvas.height = 120;
-        ctx.fillStyle = bgColor;
-        roundRect(ctx, 5, 5, 240, 110, 25);
-        ctx.fill();
-        let fontSize = text.length > 5 ? 35 : 50;
+        canvas.width = 250; 
+        canvas.height = 120;
+        
+        // ถ้าพื้นหลังไม่โปร่งใส ให้วาดพื้นหลัง
+        if (bgColor !== 'rgba(0,0,0,0)') {
+            ctx.fillStyle = bgColor;
+            roundRect(ctx, 5, 5, 240, 110, 25);
+            ctx.fill();
+        }
+        
+        let fontSize = 50;
+        if (text.length > 5) fontSize = 40;
+        if (text.length > 7) fontSize = 35;
+        
         ctx.fillStyle = color;
         ctx.font = `bold ${fontSize}px Kanit`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(text, 125, 60);
+        
         return canvas.toDataURL();
     }
 
