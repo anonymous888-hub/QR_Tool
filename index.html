@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* พื้นหลังแบบเคลื่อนไหวสีพรีเมี่ยม */
         body {
             font-family: 'Kanit', sans-serif;
             margin: 0;
@@ -29,7 +28,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* คอนเทนเนอร์แบบกระจกใส (Glassmorphism) */
         .container {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
@@ -50,7 +48,117 @@
             font-weight: 600;
             letter-spacing: -1px;
         }
-        
+
+        /* ===== COUNTER PILL (floating bottom-right) ===== */
+        .counter-pill {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 16px 10px 12px;
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.4);
+            cursor: default;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .counter-pill:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow:
+                0 8px 28px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #23d5ab;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 0 rgba(35, 213, 171, 0.7);
+            animation: pillPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pillPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(35, 213, 171, 0.7); }
+            70%  { box-shadow: 0 0 0 6px rgba(35, 213, 171, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(35, 213, 171, 0); }
+        }
+
+        .pill-body {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .pill-label {
+            font-size: 0.6rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .pill-count {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: baseline;
+            gap: 3px;
+        }
+
+        .pill-unit {
+            font-size: 0.65rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.65);
+        }
+
+        .pill-session {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border-left: 1px solid rgba(255,255,255,0.25);
+            padding-left: 10px;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .pill-session-label {
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .pill-session-num {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #23d5ab;
+        }
+
+        /* Number pop animation */
+        @keyframes numPop {
+            0%   { transform: scale(1.4); opacity: 0.5; }
+            100% { transform: scale(1);   opacity: 1; }
+        }
+
+        .pill-count.animating {
+            animation: numPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* ===== ORIGINAL STYLES ===== */
         .input-wrapper { margin-bottom: 25px; text-align: left; }
         label { 
             display: block; 
@@ -80,7 +188,6 @@
             background: #fff;
         }
 
-        /* Toggle Switch */
         .toggle-container {
             display: flex;
             gap: 15px;
@@ -110,7 +217,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* QR Style Cards */
         .qr-style-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -140,18 +246,9 @@
             box-shadow: 0 4px 15px rgba(35, 166, 213, 0.2);
         }
 
-        .style-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
+        .style-icon { font-size: 2rem; margin-bottom: 8px; }
+        .style-name { font-size: 0.85rem; font-weight: 600; color: #333; }
 
-        .style-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        /* Upload Area */
         .upload-area {
             border: 3px dashed #ddd;
             border-radius: 20px;
@@ -163,24 +260,10 @@
             position: relative;
         }
 
-        .upload-area:hover {
-            border-color: #23a6d5;
-            background: #f0f8ff;
-        }
-
-        .upload-area.dragging {
-            border-color: #23d5ab;
-            background: #e8fff9;
-        }
-
-        #logoInput {
-            display: none;
-        }
-
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+        .upload-area:hover { border-color: #23a6d5; background: #f0f8ff; }
+        .upload-area.dragging { border-color: #23d5ab; background: #e8fff9; }
+        #logoInput { display: none; }
+        .upload-icon { font-size: 3rem; margin-bottom: 10px; }
 
         .preview-image {
             max-width: 150px;
@@ -206,10 +289,7 @@
             transition: 0.3s;
         }
 
-        .remove-image:hover {
-            background: #c52f5e;
-            transform: scale(1.1);
-        }
+        .remove-image:hover { background: #c52f5e; transform: scale(1.1); }
 
         .color-row {
             display: flex; 
@@ -222,23 +302,17 @@
         }
 
         input[type="color"] {
-            width: 55px; 
-            height: 55px; 
-            border: none; 
-            cursor: pointer; 
-            background: none;
-            border-radius: 50%;
-            overflow: hidden;
-            padding: 0;
+            width: 55px; height: 55px; 
+            border: none; cursor: pointer; 
+            background: none; border-radius: 50%;
+            overflow: hidden; padding: 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
         input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
         input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
-
         .color-code { font-size: 1.2rem; font-weight: 600; color: #333; }
 
-        /* Transparent Toggle - ปรับขนาดให้เล็กลง */
         .transparent-toggle {
             display: inline-flex;
             align-items: center;
@@ -251,19 +325,14 @@
             border: 2px solid #eee;
         }
 
-        .transparent-toggle:hover {
-            background: #f0f8ff;
-            border-color: #23a6d5;
-        }
-
+        .transparent-toggle:hover { background: #f0f8ff; border-color: #23a6d5; }
         .transparent-toggle.active {
             background: linear-gradient(135deg, #e8f5ff 0%, #f0f8ff 100%);
             border-color: #23a6d5;
         }
 
         .transparent-toggle input[type="checkbox"] {
-            width: 45px;
-            height: 24px;
+            width: 45px; height: 24px;
             appearance: none;
             background: #ddd;
             border-radius: 30px;
@@ -272,37 +341,22 @@
             transition: all 0.3s ease;
         }
 
-        .transparent-toggle input[type="checkbox"]:checked {
-            background: #23a6d5;
-        }
+        .transparent-toggle input[type="checkbox"]:checked { background: #23a6d5; }
 
         .transparent-toggle input[type="checkbox"]::before {
             content: '';
             position: absolute;
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             border-radius: 50%;
             background: white;
-            top: 3px;
-            left: 3px;
+            top: 3px; left: 3px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .transparent-toggle input[type="checkbox"]:checked::before {
-            left: 24px;
-        }
+        .transparent-toggle input[type="checkbox"]:checked::before { left: 24px; }
+        .transparent-toggle label { margin: 0; padding: 0; cursor: pointer; font-size: 0.95rem; color: #333; font-weight: 500; }
 
-        .transparent-toggle label {
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            font-size: 0.95rem;
-            color: #333;
-            font-weight: 500;
-        }
-
-        /* Checkerboard pattern for transparent preview */
         #canvas.transparent-bg {
             background-image: 
                 linear-gradient(45deg, #ddd 25%, transparent 25%),
@@ -323,36 +377,24 @@
         }
 
         input[type="range"] {
-            flex-grow: 1; 
-            height: 6px; 
-            border-radius: 10px;
-            background: #ddd; 
-            appearance: none;
+            flex-grow: 1; height: 6px; border-radius: 10px;
+            background: #ddd; appearance: none;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             appearance: none;
-            width: 24px; height: 24px; 
-            border-radius: 50%;
-            background: #23a6d5; 
-            cursor: pointer;
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #23a6d5; cursor: pointer;
             box-shadow: 0 0 10px rgba(35, 166, 213, 0.4);
         }
 
         input[type="range"]::-moz-range-thumb {
-            width: 24px; height: 24px; 
-            border-radius: 50%;
-            background: #23a6d5; 
-            cursor: pointer;
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #23a6d5; cursor: pointer;
             box-shadow: 0 0 10px rgba(35, 166, 213, 0.4);
         }
 
-        .size-value {
-            font-size: 1.3rem; 
-            font-weight: 600; 
-            color: #23a6d5;
-            min-width: 70px;
-        }
+        .size-value { font-size: 1.3rem; font-weight: 600; color: #23a6d5; min-width: 70px; }
 
         #canvas { 
             margin-top: 30px;
@@ -366,16 +408,8 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
 
-        #canvas:hover { 
-            transform: scale(1.02); 
-            box-shadow: 0 20px 45px rgba(0,0,0,0.12); 
-        }
-
-        /* ✅ ให้ canvas ข้างใน #canvas ไม่เกินกว้าง */
-        #canvas canvas {
-            max-width: 100%;
-            height: auto;
-        }
+        #canvas:hover { transform: scale(1.02); box-shadow: 0 20px 45px rgba(0,0,0,0.12); }
+        #canvas canvas { max-width: 100%; height: auto; }
         
         .download-btn {
             background: linear-gradient(45deg, #23a6d5, #23d5ab);
@@ -401,123 +435,54 @@
             filter: brightness(1.1);
         }
 
-        .download-btn:active {
-            transform: translateY(1px);
-        }
-
-        .hint { 
-            font-size: 1rem; 
-            color: #888; 
-            margin-top: 15px; 
-            font-weight: 300;
-        }
-
+        .download-btn:active { transform: translateY(1px); }
+        .hint { font-size: 1rem; color: #888; margin-top: 15px; font-weight: 300; }
         b { color: #e73c7e; }
-
         .hidden { display: none !important; }
 
         @keyframes steamFloat {
             0% { transform: translateY(0); opacity: 0.8; }
             100% { transform: translateY(-6px); opacity: 0; }
         }
-        .steam-line {
-            animation: steamFloat 1.5s infinite linear;
-        }
+        .steam-line { animation: steamFloat 1.5s infinite linear; }
         .s1 { animation-delay: 0s; }
         .s2 { animation-delay: 0.5s; }
         .s3 { animation-delay: 1s; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 30px 25px; }
             h2 { font-size: 2.2rem; }
             .download-btn { font-size: 1.1rem; padding: 12px 30px; }
             .qr-style-grid { grid-template-columns: repeat(2, 1fr); }
+            .counter-pill { bottom: 16px; right: 16px; }
         }
 
-        /* ✅ MOBILE FIX สำหรับ 480px */
         @media (max-width: 480px) {
-            /* ห้ามเลื่อนซ้ายขวา */
             html, body { overflow-x: hidden; }
-
-            body {
-                padding: 10px;
-                align-items: flex-start;
-                padding-top: 50px;
-            }
-
-            .container {
-                padding: 20px 15px;
-                border-radius: 24px;
-            }
-
+            body { padding: 10px; align-items: flex-start; padding-top: 50px; }
+            .container { padding: 20px 15px; border-radius: 24px; }
             h2 { font-size: 1.8rem; margin-bottom: 20px; }
-
             .donate-text { display: none; }
-
-            /* color grid เรียงแนวตั้ง */
-            .container > div[style*="grid-template-columns: 1fr 1fr"] {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-            }
-
-            .color-row {
-                padding: 12px 16px;
-            }
-
+            .container > div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+            .color-row { padding: 12px 16px; }
             .qr-style-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-
             .style-card { padding: 10px 6px; }
             .style-icon { font-size: 1.5rem; margin-bottom: 4px; }
             .style-name { font-size: 0.8rem; }
-
-            /* toggle container เต็มความกว้าง */
-            .toggle-container {
-                width: 100%;
-                gap: 6px;
-            }
-            .toggle-btn {
-                flex: 1;
-                padding: 10px 8px;
-                font-size: 0.9rem;
-                text-align: center;
-            }
-
-            input[type="text"] {
-                padding: 13px 14px;
-                font-size: 1rem;
-            }
-
+            .toggle-container { width: 100%; gap: 6px; }
+            .toggle-btn { flex: 1; padding: 10px 8px; font-size: 0.9rem; text-align: center; }
+            input[type="text"] { padding: 13px 14px; font-size: 1rem; }
             .upload-area { padding: 20px 15px; }
             .upload-icon { font-size: 2rem; }
-
             .size-control { padding: 14px; }
             .size-value { font-size: 1.1rem; min-width: 55px; }
-
-            /* QR canvas พื้นที่ จำกัดให้อยู่ในจอ */
-            #canvas {
-                padding: 12px;
-                border-radius: 20px;
-                max-width: calc(100% - 0px);
-                overflow: hidden;
-            }
-
-            .download-btn {
-                width: 100%;
-                justify-content: center;
-                font-size: 1rem;
-                padding: 14px 20px;
-            }
-
+            #canvas { padding: 12px; border-radius: 20px; max-width: calc(100% - 0px); overflow: hidden; }
+            .download-btn { width: 100%; justify-content: center; font-size: 1rem; padding: 14px 20px; }
             .hint { font-size: 0.85rem; }
-
-            /* support btn มือถือ */
-            a[target="_blank"] > div {
-                padding: 7px 12px !important;
-            }
+            a[target="_blank"] > div { padding: 7px 12px !important; }
+            /* pill stays visible on mobile too */
         }
 
-        /* ✅ จอเล็กมาก 340px */
         @media (max-width: 340px) {
             body { padding: 6px; padding-top: 44px; }
             .container { padding: 16px 10px; border-radius: 18px; }
@@ -534,7 +499,6 @@
     <div style="display: flex; align-items: center; background-color: #FFDD00; color: #000; padding: 10px 18px; border-radius: 50px; font-weight: bold; font-family: 'Kanit'; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: 0.3s;" 
          onmouseover="this.style.transform='scale(1.05)'" 
          onmouseout="this.style.transform='scale(1)'">
-        
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
             <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
             <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -548,6 +512,22 @@
 
 <div class="container">
     <h2>QR Designer</h2>
+
+<!-- ===== COUNTER PILL (fixed bottom-right) ===== -->
+<div class="counter-pill">
+    <div class="pill-dot"></div>
+    <div class="pill-body">
+        <div class="pill-label">QR ทั้งหมด</div>
+        <div class="pill-count" id="totalCountDisplay">
+            <span id="totalCountNum">...</span>
+            <span class="pill-unit">ครั้ง</span>
+        </div>
+    </div>
+    <div class="pill-session">
+        <div class="pill-session-label">เซสชันนี้</div>
+        <div class="pill-session-num" id="sessionCountNum">0</div>
+    </div>
+</div>
     
     <div class="input-wrapper">
         <label>1. ลิงก์หรือข้อความของ QR (Link):</label>
@@ -565,12 +545,10 @@
             </button>
         </div>
 
-        <!-- Text Input -->
         <div id="textSection">
             <input type="text" id="centerText" placeholder="เช่น LINE, FB, Scan Me" oninput="updateQR()" maxlength="8">
         </div>
 
-        <!-- Image Upload -->
         <div id="imageSection" class="hidden">
             <div class="upload-area" id="uploadArea" onclick="document.getElementById('logoInput').click()">
                 <div class="upload-icon">📤</div>
@@ -607,7 +585,6 @@
         </div>
     </div>
 
-    <!-- ย้าย Transparent Toggle มาไว้ตรงนี้ -->
     <div style="text-align: center; margin-bottom: 20px;">
         <div class="transparent-toggle" id="transparentToggle" onclick="toggleTransparent()">
             <input type="checkbox" id="transparentCheck" onchange="toggleTransparent()">
@@ -617,7 +594,6 @@
 
     <div id="canvas" ondblclick="downloadQR()"></div>
 
-    <!-- รูปแบบ QR Code อยู่ใต้ QR -->
     <div class="input-wrapper" style="margin-top: 0;">
         <label style="text-align: center;">รูปแบบ QR Code (QR Style):</label>
         <div class="qr-style-grid">
@@ -655,12 +631,10 @@
 
     <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
         <p style="font-size: 1rem; color: #666; margin-bottom: 15px;">เลี้ยงกาแฟผู้พัฒนาได้ที่นี่ ☕</p>
-
         <a href="https://buymeacoffee.com/anonymous888" target="_blank" style="text-decoration: none;">
             <div style="display: inline-flex; align-items: center; background-color: #FFDD00; color: #000; padding: 12px 25px; border-radius: 15px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);"
                  onmouseover="this.style.transform='translateY(-3px)'"
                  onmouseout="this.style.transform='translateY(0)'">
-
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
                     <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
                     <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -681,7 +655,50 @@
     let currentStyle = 'rounded';
     let isTransparent = false;
 
-    // Toggle Transparent Background
+    // ===== COUNTER SYSTEM =====
+    const COUNTER_KEY = 'qr-designer:total-generated';
+    let sessionCount = 0;
+    let totalCount = 0;
+    let updateDebounceTimer = null;
+    let lastQRContent = '';  // ป้องกันนับซ้ำเมื่อแค่เปลี่ยนสี/สไตล์
+
+    async function loadCounter() {
+        try {
+            const result = await window.storage.get(COUNTER_KEY, true); // shared=true
+            totalCount = parseInt(result.value) || 0;
+        } catch (e) {
+            totalCount = 0;
+        }
+        renderCounter(false);
+    }
+
+    async function incrementCounter() {
+        totalCount++;
+        sessionCount++;
+        renderCounter(true);
+        try {
+            await window.storage.set(COUNTER_KEY, String(totalCount), true); // shared=true
+        } catch (e) {
+            console.warn('Counter save failed:', e);
+        }
+    }
+
+    function renderCounter(animate) {
+        const numEl = document.getElementById('totalCountNum');
+        const sessionEl = document.getElementById('sessionCountNum');
+        const displayEl = document.getElementById('totalCountDisplay');
+
+        numEl.textContent = totalCount.toLocaleString('th-TH');
+        sessionEl.textContent = sessionCount.toLocaleString('th-TH');
+
+        if (animate && displayEl) {
+            displayEl.classList.remove('animating');
+            void displayEl.offsetWidth;
+            displayEl.classList.add('animating');
+        }
+    }
+    // ===== END COUNTER SYSTEM =====
+
     function toggleTransparent() {
         const checkbox = document.getElementById('transparentCheck');
         const toggle = document.getElementById('transparentToggle');
@@ -705,59 +722,40 @@
         updateQR();
     }
 
-    // Select QR Style
     function selectStyle(style, element) {
         currentStyle = style;
-        
-        document.querySelectorAll('.style-card').forEach(card => {
-            card.classList.remove('selected');
-        });
-        
+        document.querySelectorAll('.style-card').forEach(card => card.classList.remove('selected'));
         element.classList.add('selected');
-        
         updateQR();
     }
 
-    // Toggle ระหว่างโหมดข้อความและรูปภาพ
     function toggleMode(mode) {
         currentMode = mode;
-        
         document.getElementById('textModeBtn').classList.toggle('active', mode === 'text');
         document.getElementById('imageModeBtn').classList.toggle('active', mode === 'image');
-        
         document.getElementById('textSection').classList.toggle('hidden', mode !== 'text');
         document.getElementById('imageSection').classList.toggle('hidden', mode !== 'image');
-        
         if (mode === 'text') {
             uploadedImage = null;
             document.getElementById('preview').innerHTML = '';
         } else {
             document.getElementById('centerText').value = '';
         }
-        
         updateQR();
     }
 
-    // Handle Image Upload
     function handleImageUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
-        
-        if (!file.type.startsWith('image/')) {
-            alert('กรุณาเลือกไฟล์รูปภาพเท่านั้น');
-            return;
-        }
-        
+        if (!file.type.startsWith('image/')) { alert('กรุณาเลือกไฟล์รูปภาพเท่านั้น'); return; }
         const reader = new FileReader();
         reader.onload = function(e) {
             uploadedImage = e.target.result;
-            
             const preview = document.getElementById('preview');
             preview.innerHTML = `
                 <button class="remove-image" onclick="removeImage()">×</button>
                 <img src="${uploadedImage}" class="preview-image" alt="Preview">
             `;
-            
             updateQR();
         };
         reader.readAsDataURL(file);
@@ -770,26 +768,15 @@
         updateQR();
     }
 
-    // Drag & Drop
     const uploadArea = document.getElementById('uploadArea');
-    
-    uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('dragging');
-    });
-    
-    uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('dragging');
-    });
-    
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragging'); });
+    uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('dragging'); });
     uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
         uploadArea.classList.remove('dragging');
-        
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith('image/')) {
-            const fakeEvent = { target: { files: [file] } };
-            handleImageUpload(fakeEvent);
+            handleImageUpload({ target: { files: [file] } });
         }
     });
 
@@ -816,36 +803,31 @@
         const bgColor = isTransparent ? 'rgba(0,0,0,0)' : document.getElementById('bgColor').value;
         const size = parseInt(document.getElementById('qrSize').value);
 
-        let dotsType, cornersSquareType, cornersDotType;
-        
-        switch(currentStyle) {
-            case 'rounded':
-                dotsType = 'extra-rounded';
-                cornersSquareType = 'extra-rounded';
-                cornersDotType = 'dot';
-                break;
-            case 'dots':
-                dotsType = 'dots';
-                cornersSquareType = 'dot';
-                cornersDotType = 'dot';
-                break;
-            case 'square':
-                dotsType = 'square';
-                cornersSquareType = 'square';
-                cornersDotType = 'square';
-                break;
-            case 'classy':
-                dotsType = 'classy';
-                cornersSquareType = 'extra-rounded';
-                cornersDotType = 'dot';
-                break;
-            default:
-                dotsType = 'extra-rounded';
-                cornersSquareType = 'extra-rounded';
-                cornersDotType = 'dot';
+        // นับเฉพาะเมื่อ content เปลี่ยน (ไม่นับแค่เปลี่ยนสี/style/size)
+        const currentContent = document.getElementById('content').value.trim();
+        if (currentContent && currentContent !== lastQRContent) {
+            // debounce 800ms หลังจากหยุดพิมพ์
+            clearTimeout(updateDebounceTimer);
+            updateDebounceTimer = setTimeout(() => {
+                lastQRContent = currentContent;
+                incrementCounter();
+            }, 800);
         }
 
-        // เลือกระหว่างข้อความหรือรูปภาพ
+        let dotsType, cornersSquareType, cornersDotType;
+        switch(currentStyle) {
+            case 'rounded':
+                dotsType = 'extra-rounded'; cornersSquareType = 'extra-rounded'; cornersDotType = 'dot'; break;
+            case 'dots':
+                dotsType = 'dots'; cornersSquareType = 'dot'; cornersDotType = 'dot'; break;
+            case 'square':
+                dotsType = 'square'; cornersSquareType = 'square'; cornersDotType = 'square'; break;
+            case 'classy':
+                dotsType = 'classy'; cornersSquareType = 'extra-rounded'; cornersDotType = 'dot'; break;
+            default:
+                dotsType = 'extra-rounded'; cornersSquareType = 'extra-rounded'; cornersDotType = 'dot';
+        }
+
         let centerImage = '';
         if (currentMode === 'text' && centerText) {
             centerImage = createTextImage(centerText, color, isTransparent ? 'rgba(0,0,0,0)' : document.getElementById('bgColor').value);
@@ -855,36 +837,22 @@
 
         if (!qrStyling) {
             qrStyling = new QRCodeStyling({
-                width: size,
-                height: size,
-                data: text,
-                image: centerImage,
+                width: size, height: size, data: text, image: centerImage,
                 dotsOptions: { color: color, type: dotsType },
                 cornersSquareOptions: { type: cornersSquareType, color: color },
                 cornersDotOptions: { type: cornersDotType, color: color },
                 backgroundOptions: { color: bgColor },
-                imageOptions: { 
-                    hideBackgroundDots: true, 
-                    imageSize: 0.4, 
-                    margin: currentMode === 'image' ? 5 : 10 
-                }
+                imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: currentMode === 'image' ? 5 : 10 }
             });
             qrStyling.append(document.getElementById("canvas"));
         } else {
             qrStyling.update({
-                width: size, 
-                height: size, 
-                data: text, 
-                image: centerImage,
+                width: size, height: size, data: text, image: centerImage,
                 dotsOptions: { color: color, type: dotsType },
                 cornersSquareOptions: { type: cornersSquareType, color: color },
                 cornersDotOptions: { type: cornersDotType, color: color },
                 backgroundOptions: { color: bgColor },
-                imageOptions: { 
-                    hideBackgroundDots: true, 
-                    imageSize: 0.4, 
-                    margin: currentMode === 'image' ? 5 : 10 
-                }
+                imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: currentMode === 'image' ? 5 : 10 }
             });
         }
     }
@@ -905,29 +873,22 @@
 
     function createTextImage(text, color, bgColor) {
         if (!text) return "";
-        
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = 250; 
-        canvas.height = 120;
-        
-        // ถ้าพื้นหลังไม่โปร่งใส ให้วาดพื้นหลัง
+        canvas.width = 250; canvas.height = 120;
         if (bgColor !== 'rgba(0,0,0,0)') {
             ctx.fillStyle = bgColor;
             roundRect(ctx, 5, 5, 240, 110, 25);
             ctx.fill();
         }
-        
         let fontSize = 50;
         if (text.length > 5) fontSize = 40;
         if (text.length > 7) fontSize = 35;
-        
         ctx.fillStyle = color;
         ctx.font = `bold ${fontSize}px Kanit`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(text, 125, 60);
-        
         return canvas.toDataURL();
     }
 
@@ -937,16 +898,18 @@
         }
     }
 
-    // รอ QRCodeStyling library load เสร็จก่อนเรียก updateQR
+    // Init
     function waitForQRLib() {
         if (typeof QRCodeStyling !== 'undefined') {
             updateQR();
         } else {
-            setTimeout(waitForQRLib, 100); // check ใหม่ทุก 100ms
+            setTimeout(waitForQRLib, 100);
         }
     }
+
+    // โหลด counter และ QR lib พร้อมกัน
+    loadCounter();
     waitForQRLib();
 </script>
-
 </body>
 </html>
